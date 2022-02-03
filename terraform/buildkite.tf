@@ -110,6 +110,14 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
     # but already have a local cache of Docker images and Scala libraries.
     BuildkiteTerminateInstanceAfterJob = false
 
+    # If we don't disable this setting, we get this error when trying to
+    # run Docker containers on the instances:
+    #
+    #     docker: Error response from daemon: cannot share the host's
+    #     network namespace when user namespaces are enabled.
+    #
+    EnableDockerUserNamespaceRemap = false
+
     InstanceRoleName = local.ci_scala_agent_role_name
 
     RootVolumeSize = 25
