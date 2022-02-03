@@ -7,6 +7,11 @@ resource "aws_s3_bucket" "buildkite_secrets" {
   acl    = "private"
 }
 
+resource "aws_s3_bucket" "buildkite_artifacts" {
+  bucket = "wellcomecollection-buildkite-artifacts"
+  acl    = "private"
+}
+
 resource "aws_s3_bucket_policy" "infra" {
   bucket = local.infra_bucket_id
   policy = data.aws_iam_policy_document.infra.json

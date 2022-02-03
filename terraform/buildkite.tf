@@ -139,7 +139,8 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
     CostAllocationTagName  = "aws:createdBy"
     CostAllocationTagValue = "buildkite-elasticstack"
 
-    SecretsBucket = aws_s3_bucket.buildkite_secrets.id
+    ArtifactsBucket = aws_s3_bucket.buildkite_artifacts.id
+    SecretsBucket   = aws_s3_bucket.buildkite_secrets.id
 
     BuildkiteAgentRelease        = "stable"
     BuildkiteAgentTimestampLines = false
