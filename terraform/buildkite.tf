@@ -61,6 +61,12 @@ resource "aws_cloudformation_stack" "buildkite" {
     CostAllocationTagName  = "aws:createdBy"
     CostAllocationTagValue = "buildkite-elasticstack"
 
+    # This tells Buildkite to fetch secrets from our S3 bucket, which
+    # includes the agent hook and SSH key.
+    EnableSecretsPlugin = true
+
+    SecretsBucket = aws_s3_bucket.buildkite_secrets.id
+
     BuildkiteAgentRelease        = "stable"
     BuildkiteAgentTimestampLines = false
   }
@@ -143,8 +149,7 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
     # includes the agent hook and SSH key.
     EnableSecretsPlugin = true
 
-    ArtifactsBucket = aws_s3_bucket.buildkite_artifacts.id
-    SecretsBucket   = aws_s3_bucket.buildkite_secrets.id
+    SecretsBucket = aws_s3_bucket.buildkite_secrets.id
 
     BuildkiteAgentRelease        = "stable"
     BuildkiteAgentTimestampLines = false
@@ -227,6 +232,12 @@ resource "aws_cloudformation_stack" "buildkite_nano" {
 
     CostAllocationTagName  = "aws:createdBy"
     CostAllocationTagValue = "buildkite-elasticstack"
+
+    # This tells Buildkite to fetch secrets from our S3 bucket, which
+    # includes the agent hook and SSH key.
+    EnableSecretsPlugin = true
+
+    SecretsBucket = aws_s3_bucket.buildkite_secrets.id
 
     BuildkiteAgentRelease        = "stable"
     BuildkiteAgentTimestampLines = false
