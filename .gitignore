@@ -1,7 +1,5 @@
 .DS_Store
-.releases
 *.plan
-*.pyc
 
 # Created by https://www.gitignore.io/api/terraform
 # Edit at https://www.gitignore.io/?templates=terraform
@@ -39,7 +37,3 @@ override.tf.json
 # example: *tfplan*
 
 # End of https://www.gitignore.io/api/terraform
-
-.vscode
-
-node_modules/
