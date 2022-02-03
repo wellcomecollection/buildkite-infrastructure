@@ -66,17 +66,6 @@ data "aws_iam_policy_document" "ci_permissions" {
     ]
   }
 
-  # Publish & retrieve scala libraries
-  statement {
-    actions = [
-      "s3:*"
-    ]
-
-    resources = [
-      "${aws_s3_bucket.releases.arn}/weco/*",
-    ]
-  }
-
   # Publish & retrieve lambdas
   statement {
     actions = [
@@ -85,6 +74,44 @@ data "aws_iam_policy_document" "ci_permissions" {
 
     resources = [
       "${local.infra_bucket_arn}/lambdas/*",
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "ci_scala_permissions" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    resources = [
+      local.platform_read_only_role_arn,
+      local.account_ci_role_arn_map["platform"],
+      local.account_ci_role_arn_map["catalogue"],
+      local.account_ci_role_arn_map["digirati"],
+      local.account_ci_role_arn_map["storage"],
+      local.account_ci_role_arn_map["experience"],
+      local.account_ci_role_arn_map["workflow"],
+      local.account_ci_role_arn_map["identity"],
+    ]
+  }
+
+  # Deploy images to ECR (platform account)
+  statement {
+    actions = [
+      "ecr:*",
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+
+  # Retrieve build secrets
+  statement {
+    actions = [
+      "secretsmanager:GetSecretValue",
+    ]
+
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:builds/*",
     ]
   }
 }

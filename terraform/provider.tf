@@ -18,4 +18,14 @@ provider "aws" {
   assume_role {
     role_arn = "arn:aws:iam::${local.platform_account_id}:role/platform-admin"
   }
+
+  default_tags {
+    tags = {
+      TerraformConfigurationURL = "https://github.com/wellcomecollection/platform-infrastructure/tree/main/builds"
+      Environment               = "Production"
+      Department                = "Digital Platform"
+      Division                  = "Wellcome Collection"
+      Use                       = "Our build infrastructure"
+    }
+  }
 }

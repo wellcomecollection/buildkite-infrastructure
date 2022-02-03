@@ -2,48 +2,9 @@ locals {
   principals = formatlist("arn:aws:iam::%s:root", local.account_ids)
 }
 
-resource "aws_s3_bucket" "releases" {
-  bucket = "releases.mvn-repo.wellcomecollection.org"
-  acl    = "public-read"
-
-  lifecycle {
-    prevent_destroy = true
-  }
-
-  lifecycle_rule {
-    id = "transition_all_to_standard_ia"
-
-    transition {
-      days          = 30
-      storage_class = "STANDARD_IA"
-    }
-
-    enabled = true
-  }
-}
-
-resource "aws_s3_bucket_policy" "releases" {
-  bucket = aws_s3_bucket.releases.id
-  policy = data.aws_iam_policy_document.releases.json
-}
-
-data "aws_iam_policy_document" "releases" {
-  statement {
-    actions = [
-      "s3:Get*",
-      "s3:List*",
-    ]
-
-    principals {
-      identifiers = local.principals
-      type        = "AWS"
-    }
-
-    resources = [
-      aws_s3_bucket.releases.arn,
-      "${aws_s3_bucket.releases.arn}/*",
-    ]
-  }
+resource "aws_s3_bucket" "buildkite_secrets" {
+  bucket = "wellcomecollection-buildkite-secrets"
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_policy" "infra" {
