@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "buildkite_secrets" {
 
 resource "aws_s3_bucket" "buildkite_secrets_logging" {
   bucket = "wellcomecollection-buildkite-secrets-logging"
-  acl    = "private"
+  acl    = "log-delivery-write"
 }
 
 resource "aws_s3_bucket_policy" "infra" {
