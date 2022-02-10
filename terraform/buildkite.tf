@@ -5,7 +5,7 @@ resource "aws_cloudformation_stack" "buildkite" {
 
   parameters = {
     MinSize = 0
-    MaxSize = 60
+    MaxSize = 20
 
     SpotPrice    = 0.05
     InstanceType = "r5.large"
@@ -95,10 +95,8 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
 
     BuildkiteQueue = "scala"
 
-    # This is a bit of a guess right now: I imagine at some point we'll
-    # want to tweak it, but I don't want to spend too much while I experiment.
     MinSize = 0
-    MaxSize = 20
+    MaxSize = 60
 
     # This setting would tell Buildkite to scale out for steps behind wait
     # steps.
