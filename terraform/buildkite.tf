@@ -5,7 +5,7 @@ resource "aws_cloudformation_stack" "buildkite" {
 
   parameters = {
     MinSize = 0
-    MaxSize = 60
+    MaxSize = 20
 
     SpotPrice    = 0.05
     InstanceType = "r5.large"
@@ -60,6 +60,94 @@ resource "aws_cloudformation_stack" "buildkite" {
 
     CostAllocationTagName  = "aws:createdBy"
     CostAllocationTagValue = "buildkite-elasticstack"
+
+    # This tells Buildkite to fetch secrets from our S3 bucket, which
+    # includes the agent hook and SSH key.
+    EnableSecretsPlugin = true
+
+    SecretsBucket = aws_s3_bucket.buildkite_secrets.id
+
+    BuildkiteAgentRelease        = "stable"
+    BuildkiteAgentTimestampLines = false
+  }
+
+  template_body = file("${path.module}/buildkite-v5.7.2.yml")
+}
+
+# This is a separate pool of Buildkite instances specifically meant
+# for high-CPU, Scala tasks.  They use more expensive instances with
+# more compute power to make those tasks go faster.
+#
+# You can target this queue by adding the following lines to the
+# Buildkite steps:
+#
+#      agents:
+#        queue: "scala"
+#
+resource "aws_cloudformation_stack" "buildkite_scala" {
+  name = "buildkite-elasticstack-scala"
+
+  capabilities = ["CAPABILITY_NAMED_IAM", "CAPABILITY_AUTO_EXPAND"]
+
+  parameters = {
+    SpotPrice    = 0.2
+    InstanceType = "c5.2xlarge"
+
+    BuildkiteQueue = "scala"
+
+    MinSize = 0
+    MaxSize = 60
+
+    # This setting would tell Buildkite to scale out for steps behind wait
+    # steps.
+    #
+    # We don't enable it for nano instances because these are often waiting
+    # behind long-running tasks in the large queue (e.g. build and publish
+    # a Docker image, then deploy it from a nano instance) and the pre-emptively
+    # scaled instances would likely time out before they were used.
+    #
+    ScaleOutForWaitingJobs = false
+
+    # We don't have to terminate an agent after a job completes.  We have
+    # an agent hook (see buildkite_agent_hook.sh) which tries to clean up
+    # any state left over from previous jobs, so each instance will be "fresh",
+    # but already have a local cache of Docker images and Scala libraries.
+    BuildkiteTerminateInstanceAfterJob = false
+
+    # If we don't disable this setting, we get this error when trying to
+    # run Docker containers on the instances:
+    #
+    #     docker: Error response from daemon: cannot share the host's
+    #     network namespace when user namespaces are enabled.
+    #
+    EnableDockerUserNamespaceRemap = false
+
+    InstanceRoleName = local.ci_scala_agent_role_name
+
+    RootVolumeSize = 25
+    RootVolumeName = "/dev/xvda"
+    RootVolumeType = "gp2"
+
+    # This is a collection of settings that should be the same for every
+    # instance of the Buildkite stack.
+    AgentsPerInstance = 1
+
+    BuildkiteAgentTokenParameterStorePath = "/aws/reference/secretsmanager/builds/buildkite_agent_key"
+
+    InstanceCreationTimeout = "PT5M"
+
+    VpcId           = local.ci_vpc_id
+    Subnets         = join(",", local.ci_vpc_private_subnets)
+    SecurityGroupId = aws_security_group.buildkite.id
+
+    CostAllocationTagName  = "aws:createdBy"
+    CostAllocationTagValue = "buildkite-elasticstack"
+
+    # This tells Buildkite to fetch secrets from our S3 bucket, which
+    # includes the agent hook and SSH key.
+    EnableSecretsPlugin = true
+
+    SecretsBucket = aws_s3_bucket.buildkite_secrets.id
 
     BuildkiteAgentRelease        = "stable"
     BuildkiteAgentTimestampLines = false
@@ -142,6 +230,12 @@ resource "aws_cloudformation_stack" "buildkite_nano" {
 
     CostAllocationTagName  = "aws:createdBy"
     CostAllocationTagValue = "buildkite-elasticstack"
+
+    # This tells Buildkite to fetch secrets from our S3 bucket, which
+    # includes the agent hook and SSH key.
+    EnableSecretsPlugin = true
+
+    SecretsBucket = aws_s3_bucket.buildkite_secrets.id
 
     BuildkiteAgentRelease        = "stable"
     BuildkiteAgentTimestampLines = false

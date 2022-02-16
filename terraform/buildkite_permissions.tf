@@ -12,6 +12,20 @@ resource "aws_iam_role_policy" "ci_agent" {
   role   = data.aws_iam_role.ci_agent.id
 }
 
+data "aws_iam_role" "ci_scala_agent" {
+  name = local.ci_scala_agent_role_name
+}
+
+resource "aws_iam_role_policy" "ci_scala_get_buildkite_agent_key" {
+  policy = data.aws_iam_policy_document.get_buildkite_agent_key.json
+  role   = data.aws_iam_role.ci_scala_agent.id
+}
+
+resource "aws_iam_role_policy" "ci_scala_agent" {
+  policy = data.aws_iam_policy_document.ci_scala_permissions.json
+  role   = data.aws_iam_role.ci_scala_agent.id
+}
+
 data "aws_iam_role" "ci_nano_agent" {
   name = local.ci_nano_agent_role_name
 }
@@ -34,6 +48,11 @@ resource "aws_iam_role_policy" "ci_nano_agent" {
 resource "aws_iam_role_policy" "lambda_get_buildkite_agent_key" {
   policy = data.aws_iam_policy_document.get_buildkite_agent_key.json
   role   = "buildkite-elasticstack-Autoscaling-1-ExecutionRole-1N5V0S7X6NFLO"
+}
+
+resource "aws_iam_role_policy" "lambda_scala_get_buildkite_agent_key" {
+  policy = data.aws_iam_policy_document.get_buildkite_agent_key.json
+  role   = "buildkite-elasticstack-scala-Autosca-ExecutionRole-QDRJU9K280U9"
 }
 
 resource "aws_iam_role_policy" "lambda_nano_get_buildkite_agent_key" {

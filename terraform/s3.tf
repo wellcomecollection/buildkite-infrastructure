@@ -2,48 +2,18 @@ locals {
   principals = formatlist("arn:aws:iam::%s:root", local.account_ids)
 }
 
-resource "aws_s3_bucket" "releases" {
-  bucket = "releases.mvn-repo.wellcomecollection.org"
-  acl    = "public-read"
+resource "aws_s3_bucket" "buildkite_secrets" {
+  bucket = "wellcomecollection-buildkite-secrets"
+  acl    = "private"
 
-  lifecycle {
-    prevent_destroy = true
-  }
-
-  lifecycle_rule {
-    id = "transition_all_to_standard_ia"
-
-    transition {
-      days          = 30
-      storage_class = "STANDARD_IA"
-    }
-
-    enabled = true
+  logging {
+    target_bucket = aws_s3_bucket.buildkite_secrets_logging.id
   }
 }
 
-resource "aws_s3_bucket_policy" "releases" {
-  bucket = aws_s3_bucket.releases.id
-  policy = data.aws_iam_policy_document.releases.json
-}
-
-data "aws_iam_policy_document" "releases" {
-  statement {
-    actions = [
-      "s3:Get*",
-      "s3:List*",
-    ]
-
-    principals {
-      identifiers = local.principals
-      type        = "AWS"
-    }
-
-    resources = [
-      aws_s3_bucket.releases.arn,
-      "${aws_s3_bucket.releases.arn}/*",
-    ]
-  }
+resource "aws_s3_bucket" "buildkite_secrets_logging" {
+  bucket = "wellcomecollection-buildkite-secrets-logging"
+  acl    = "log-delivery-write"
 }
 
 resource "aws_s3_bucket_policy" "infra" {

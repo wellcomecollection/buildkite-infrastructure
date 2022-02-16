@@ -11,15 +11,8 @@ locals {
   buildkite_agent_hook_path = "${path.module}/../buildkite_agent_hook.sh"
 }
 
-resource "aws_s3_bucket_object" "buildkite_agent_hook" {
-  bucket = aws_cloudformation_stack.buildkite.outputs["ManagedSecretsBucket"]
-  key    = "env"
-  source = local.buildkite_agent_hook_path
-  etag   = filemd5(local.buildkite_agent_hook_path)
-}
-
-resource "aws_s3_bucket_object" "buildkite_nano_agent_hook" {
-  bucket = aws_cloudformation_stack.buildkite_nano.outputs["ManagedSecretsBucket"]
+resource "aws_s3_bucket_object" "agent_hook" {
+  bucket = aws_s3_bucket.buildkite_secrets.id
   key    = "env"
   source = local.buildkite_agent_hook_path
   etag   = filemd5(local.buildkite_agent_hook_path)
