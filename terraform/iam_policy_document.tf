@@ -114,6 +114,16 @@ data "aws_iam_policy_document" "ci_scala_permissions" {
       "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:builds/*",
     ]
   }
+
+  statement {
+    actions = [
+      "s3:PutObject*",
+    ]
+
+    resources = [
+      "arn:aws:s3:::releases.mvn-repo.wellcomecollection.org/*",
+    ]
+  }
 }
 
 data "aws_iam_policy_document" "ci_nano_permissions" {
