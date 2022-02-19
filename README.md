@@ -3,6 +3,7 @@
 [![Build status](https://badge.buildkite.com/8f0b5086f09a5fbd3405610566ac66b82ae90005b8268688b2.svg)](https://buildkite.com/wellcomecollection/buildkite-infrastructure)
 
 We use [Buildkite] to power our CI/CD setup.
+This repo contains the configuration for our Buildkite setup.
 
 We use Buildkite so that we can use EC2 instances in our own account as [Buildkite agents][agents], which has several benefits:
 
