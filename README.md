@@ -4,14 +4,18 @@
 
 We use [Buildkite] to power our CI/CD setup.
 
-The main reason we use Buildkite is that we can use EC2 instances in our own account as [Buildkite agents][agents], which has several advantages:
+We use Buildkite so that we can use EC2 instances in our own account as [Buildkite agents][agents], which has several benefits:
 
-*   We can have CI agents that are as parallel or as powerful as we're willing to pay for; we're not bound by provider limits.
+*   **We can choose which instances to use.**
+    We can run as many parallel EC2 instances as we're willing to pay for, and we can choose instance types that are best suited to our particular tasks.
 
-*   We can use IAM permissions management within AWS, rather than creating credentials that are hard-coded in our CI provider.
+*   **The build runners are inside our AWS account.**
+    This means we can use EC2 instance roles for permissions management, rather than creating permanent credentials that we have to trust to a third-party CI provider.
+    We're more comfortable doing powerful things in CI (e.g. deploying to prod) because it's within our account boundary.
 
-*   We can reuse the same instance in multiple builds; we don't have to worry about information leaking from another tenant.
-    This gets us more caching between builds.
+*   **We can reuse the same instance in multiple builds.**
+    Because we're the only organisation using our build runners, we don't have to worry about information leaking from another tenant's builds, or our information leaking into their builds.
+    This means we can reuse build instances, which gets us more caching and faster builds.
 
 [Buildkite]: https://buildkite.com/wellcomecollection
 [agents]: https://buildkite.com/docs/agent/v3
