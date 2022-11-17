@@ -159,7 +159,7 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
 # This is a separate pool of Buildkite instances specifically meant
 # for long-running, low-compute tasks.
 #
-# e.g. waiting for a weco-deploy build to finish.
+# e.g. waiting for a blue-green deployment of new services
 #
 # I picked the name "nano" because they're a catchall group for any sort
 # of small task, rather than for a specific purpose.
