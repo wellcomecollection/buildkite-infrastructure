@@ -153,7 +153,7 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
     BuildkiteAgentTimestampLines = false
   }
 
-  template_body = file("${path.module}/buildkite-v5.7.2.yml")
+  template_body = file("${path.module}/buildkite-v5.16.1.yml")
 }
 
 # This is a separate pool of Buildkite instances specifically meant
@@ -241,5 +241,5 @@ resource "aws_cloudformation_stack" "buildkite_nano" {
     BuildkiteAgentTimestampLines = false
   }
 
-  template_body = file("${path.module}/buildkite-v5.7.2.yml")
+  template_body = file("${path.module}/buildkite-v5.16.1.yml")
 }
