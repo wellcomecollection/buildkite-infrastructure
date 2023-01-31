@@ -153,7 +153,9 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
     BuildkiteAgentTimestampLines = false
   }
 
-  template_body = file("${path.module}/buildkite-v5.16.1.yml")
+  // The catalogue pipeline batcher only seems to work with this version.
+  // See: https://github.com/wellcomecollection/platform/issues/5656
+  template_body = file("${path.module}/buildkite-v5.7.2.yml")
 }
 
 # This is a separate pool of Buildkite instances specifically meant
