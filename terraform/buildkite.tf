@@ -23,6 +23,12 @@ locals {
 
     BuildkiteAgentRelease        = "stable"
     BuildkiteAgentTimestampLines = false
+
+    # We don't have to terminate an agent after a job completes.  We have
+    # an agent hook (see buildkite_agent_hook.sh) which tries to clean up
+    # any state left over from previous jobs, so each instance will be "fresh",
+    # but already have a local cache of Docker images and Scala libraries.
+    BuildkiteTerminateInstanceAfterJob = false
   }
 }
 
@@ -54,12 +60,6 @@ resource "aws_cloudformation_stack" "buildkite" {
       #
       ScaleOutForWaitingJobs = true
       ScaleInIdlePeriod      = 600
-
-      # We don't have to terminate an agent after a job completes.  We have
-      # an agent hook (see buildkite_agent_hook.sh) which tries to clean up
-      # any state left over from previous jobs, so each instance will be "fresh",
-      # but already have a local cache of Docker images and Scala libraries.
-      BuildkiteTerminateInstanceAfterJob = false
 
       InstanceRoleName = local.ci_agent_role_name
 
@@ -115,12 +115,6 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
       # scaled instances would likely time out before they were used.
       #
       ScaleOutForWaitingJobs = false
-
-      # We don't have to terminate an agent after a job completes.  We have
-      # an agent hook (see buildkite_agent_hook.sh) which tries to clean up
-      # any state left over from previous jobs, so each instance will be "fresh",
-      # but already have a local cache of Docker images and Scala libraries.
-      BuildkiteTerminateInstanceAfterJob = false
 
       # If we don't disable this setting, we get this error when trying to
       # run Docker containers on the instances:
@@ -192,12 +186,6 @@ resource "aws_cloudformation_stack" "buildkite_nano" {
       # scaled instances would likely time out before they were used.
       #
       ScaleOutForWaitingJobs = false
-
-      # We don't have to terminate an agent after a job completes.  We have
-      # an agent hook (see buildkite_agent_hook.sh) which tries to clean up
-      # any state left over from previous jobs, so each instance will be "fresh",
-      # but already have a local cache of Docker images and Scala libraries.
-      BuildkiteTerminateInstanceAfterJob = false
 
       InstanceRoleName = local.ci_nano_agent_role_name
 
