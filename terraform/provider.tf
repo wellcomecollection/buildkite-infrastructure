@@ -21,7 +21,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      TerraformConfigurationURL = "https://github.com/wellcomecollection/platform-infrastructure/tree/main/builds"
+      TerraformConfigurationURL = "https://github.com/wellcomecollection/buildkite-infrastructure/"
       Environment               = "Production"
       Department                = "Digital Platform"
       Division                  = "Wellcome Collection"
