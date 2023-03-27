@@ -98,7 +98,7 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
 
   parameters = merge(
     {
-      SpotPrice    = 0.2
+      SpotPrice    = 0.3
       InstanceType = "c5.2xlarge"
 
       BuildkiteQueue = "scala"
