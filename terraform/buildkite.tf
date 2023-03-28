@@ -42,7 +42,7 @@ resource "aws_cloudformation_stack" "buildkite" {
       MinSize = 0
       MaxSize = 20
 
-      SpotPrice    = 0.05
+      SpotPrice    = 0.06
       InstanceType = "r5.large"
 
       BuildkiteQueue = "default"
