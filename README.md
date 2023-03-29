@@ -76,3 +76,4 @@ If you're a Wellcome developer who wants to log in to Buildkite, visit <https://
     If this message doesn't disappear quickly, there may be an issue starting new EC2 instances – check the autoscaling group in the AWS console.
 
     One issue we've seen several times is when the current EC2 Spot price is higher than our maximum configured Spot bid -- check the spot pricing history for the instance class in the AWS console, and compare it to the `SpotPrice` parameter in our Terraform.
+    If the current spot price is too high, consider increasing the `SpotPrice` parameter and plan/applying the Terraform.
