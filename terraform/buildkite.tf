@@ -179,17 +179,7 @@ resource "aws_cloudformation_stack" "buildkite_nano" {
 
       BuildkiteQueue = "nano"
 
-      # At time of writing (1 October 2021), we have six deployment tasks
-      # in the pipeline repo: four adapters, the reindexer, and the pipeline.
-      #
-      # We want all of these to run simultaneously and leave room for other
-      # nano tasks, so we need >6 instances.
-      #
-      # We always run at least one nano instance because nano instances are
-      # extremely cheap, and this means the initial "pipeline upload" step
-      # is always warm.  An on-demand t3.nano costs ~$4 a month, and we use
-      # spot pricing, so this is unlikely to be an issue.
-      MinSize = 1
+      MinSize = 0
       MaxSize = 10
 
       # This setting would tell Buildkite to scale out for steps behind wait
