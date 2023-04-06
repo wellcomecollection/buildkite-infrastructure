@@ -24,6 +24,9 @@ locals {
     BuildkiteAgentRelease        = "stable"
     BuildkiteAgentTimestampLines = false
 
+    RootVolumeName = "/dev/xvda"
+    RootVolumeType = "gp2"
+
     # We don't have to terminate an agent after a job completes.  We have
     # an agent hook (see buildkite_agent_hook.sh) which tries to clean up
     # any state left over from previous jobs, so each instance will be "fresh",
@@ -63,9 +66,16 @@ resource "aws_cloudformation_stack" "buildkite" {
 
       InstanceRoleName = local.ci_agent_role_name
 
-      RootVolumeSize = 25
-      RootVolumeName = "/dev/xvda"
-      RootVolumeType = "gp2"
+      # Before a job starts, Buildkite will do a disk health check for
+      # free space.  We used to have this set at 25GB, but on days with
+      # lots of builds (and so lots of long-lived agents) we started to
+      # see errors from this health check:
+      #
+      #     Not enough disk space free, cutoff is 5242880 🚨
+      #     Disk health checks failed
+      #
+      # If you see this error again, consider increasing this limit.
+      RootVolumeSize = 30
 
       # If we don't disable this setting, we get this error when trying to
       # run Docker containers on the instances:
@@ -126,9 +136,16 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
 
       InstanceRoleName = local.ci_scala_agent_role_name
 
-      RootVolumeSize = 25
-      RootVolumeName = "/dev/xvda"
-      RootVolumeType = "gp2"
+      # Before a job starts, Buildkite will do a disk health check for
+      # free space.  We used to have this set at 25GB, but on days with
+      # lots of builds (and so lots of long-lived agents) we started to
+      # see errors from this health check:
+      #
+      #     Not enough disk space free, cutoff is 5242880 🚨
+      #     Disk health checks failed
+      #
+      # If you see this error again, consider increasing this limit.
+      RootVolumeSize = 30
     },
     local.common_parameters
   )
@@ -188,8 +205,6 @@ resource "aws_cloudformation_stack" "buildkite_nano" {
       InstanceRoleName = local.ci_nano_agent_role_name
 
       RootVolumeSize = 10
-      RootVolumeName = "/dev/xvda"
-      RootVolumeType = "gp2"
     },
     local.common_parameters
   )

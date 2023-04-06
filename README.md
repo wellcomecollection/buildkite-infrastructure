@@ -77,3 +77,14 @@ If you're a Wellcome developer who wants to log in to Buildkite, visit <https://
 
     One issue we've seen several times is when the current EC2 Spot price is higher than our maximum configured Spot bid -- check the spot pricing history for the instance class in the AWS console, and compare it to the `SpotPrice` parameter in our Terraform.
     If the current spot price is too high, consider increasing the `SpotPrice` parameter and plan/applying the Terraform.
+
+*   When a job starts, Buildkite does a health check on the agent to ensure  there's enough disk space available.
+
+    If an agent has been running for a long time, it may have a lot of images in the local Docker image cache, and the job will fail an error like:
+
+    > Not enough disk space free, cutoff is 5242880 🚨<br/>
+    > Disk health checks failed
+
+    Usually it should be enough to restart the failed job -- it will be assigned to a different agent with more disk space.
+
+    If this error persists (which suggests it's affecting multiple agents), consider increasing the `RootVolumeSize` parameter in Terraform.
