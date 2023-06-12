@@ -33,6 +33,27 @@ locals {
     # but already have a local cache of Docker images and Scala libraries.
     BuildkiteTerminateInstanceAfterJob = false
   }
+
+  # This is the price of On-Demand EC2 Instances, which can be obtained
+  # from https://aws.amazon.com/ec2/pricing/on-demand/
+  on_demand_ec2_pricing = {
+    "r5.large"   = 0.125
+    "c5.2xlarge" = 0.34
+    "t3.nano"    = 0.0052
+  }
+
+  # We've occasionally seen cases where Buildkite is unable to start new
+  # workers, because the Spot Price gets too high.
+  #
+  # Allow Spot bids up to 10% above the On-Demand price; any more than that
+  # and we should investigate using a mix of On-Demand instances also.
+  instance_information = {
+    for name, price in local.on_demand_ec2_pricing :
+    name => {
+      InstanceType = name
+      SpotPrice    = price * 1.1
+    }
+  }
 }
 
 resource "aws_cloudformation_stack" "buildkite" {
@@ -41,12 +62,10 @@ resource "aws_cloudformation_stack" "buildkite" {
   capabilities = ["CAPABILITY_NAMED_IAM", "CAPABILITY_AUTO_EXPAND"]
 
   parameters = merge(
+    local.instance_information["r5.large"],
     {
       MinSize = 0
       MaxSize = 20
-
-      SpotPrice    = 0.06
-      InstanceType = "r5.large"
 
       BuildkiteQueue = "default"
 
@@ -107,10 +126,8 @@ resource "aws_cloudformation_stack" "buildkite_scala" {
   capabilities = ["CAPABILITY_NAMED_IAM", "CAPABILITY_AUTO_EXPAND"]
 
   parameters = merge(
+    local.instance_information["c5.2xlarge"],
     {
-      SpotPrice    = 0.3
-      InstanceType = "c5.2xlarge"
-
       BuildkiteQueue = "scala"
 
       MinSize = 0
@@ -173,10 +190,8 @@ resource "aws_cloudformation_stack" "buildkite_nano" {
   capabilities = ["CAPABILITY_NAMED_IAM", "CAPABILITY_AUTO_EXPAND"]
 
   parameters = merge(
+    local.instance_information["t3.nano"],
     {
-      SpotPrice    = 0.01
-      InstanceType = "t3.nano"
-
       BuildkiteQueue = "nano"
 
       MinSize = 0
