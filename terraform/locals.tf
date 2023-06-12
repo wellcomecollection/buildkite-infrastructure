@@ -17,4 +17,10 @@ locals {
 
   account_id = data.aws_caller_identity.current.account_id
   aws_region = data.aws_region.current.name
+
+  network_config = {
+    vpc_id            = local.ci_vpc_id
+    subnets           = local.ci_vpc_private_subnets
+    security_group_id = aws_security_group.buildkite.id
+  }
 }
