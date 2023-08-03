@@ -7,7 +7,7 @@ module "default" {
   ci_agent_role_name = local.ci_agent_role_name
 
   instance_type = "r5.large"
-  disk_size     = "30 GB"
+  disk_size     = "40 GB"
 
   max_workers = 20
 
@@ -57,7 +57,7 @@ module "scala" {
   ci_agent_role_name = local.ci_scala_agent_role_name
 
   instance_type = "c5.2xlarge"
-  disk_size     = "30 GB"
+  disk_size     = "40 GB"
 
   max_workers = 60
 
@@ -107,7 +107,7 @@ module "nano" {
   ci_agent_role_name = local.ci_nano_agent_role_name
 
   instance_type = "t3.nano"
-  disk_size     = "10 GB"
+  disk_size     = "20 GB"
 
   max_workers = 10
 
