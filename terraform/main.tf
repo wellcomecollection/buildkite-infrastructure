@@ -33,11 +33,6 @@ module "default" {
   secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id
 }
 
-moved {
-  from = aws_cloudformation_stack.buildkite
-  to   = module.default.aws_cloudformation_stack.buildkite
-}
-
 # This is a separate pool of Buildkite instances specifically meant
 # for high-CPU, Scala tasks.  They use more expensive instances with
 # more compute power to make those tasks go faster.
@@ -77,11 +72,6 @@ module "scala" {
 
   network_config    = local.network_config
   secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id
-}
-
-moved {
-  from = aws_cloudformation_stack.buildkite_scala
-  to   = module.scala.aws_cloudformation_stack.buildkite
 }
 
 # This is a separate pool of Buildkite instances specifically meant
@@ -127,9 +117,4 @@ module "nano" {
 
   network_config    = local.network_config
   secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id
-}
-
-moved {
-  from = aws_cloudformation_stack.buildkite_nano
-  to   = module.nano.aws_cloudformation_stack.buildkite
 }
