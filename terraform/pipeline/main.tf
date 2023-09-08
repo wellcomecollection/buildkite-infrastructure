@@ -1,6 +1,10 @@
+locals {
+  repository_name = var.repository_name != "" ? var.repository_name : var.name
+}
+
 resource "buildkite_pipeline" "pipeline" {
   name       = var.name
-  repository = "git@github.com:wellcomecollection/${var.repository_name}.git"
+  repository = "git@github.com:wellcomecollection/${local.repository_name}.git"
 
   steps = <<EOF
 steps:

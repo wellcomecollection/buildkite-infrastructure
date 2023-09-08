@@ -1,5 +1,5 @@
 variable "name" {
-  type = string
+  type    = string
 }
 
 variable "description" {
@@ -8,7 +8,10 @@ variable "description" {
 }
 
 variable "repository_name" {
-  type = string
+  type    = string
+  default = ""
+
+  description = "The name of the GitHub repository. If omitted, the name will be used."
 }
 
 variable "default_branch" {

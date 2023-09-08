@@ -1,3 +1,28 @@
+module "archivematica_infrastructure" {
+  source = "./pipeline"
+
+  name        = "archivematica-infrastructure"
+  description = "Our custom build of Archivematica and associated infrastructure"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+module "aws_account_infrastructure" {
+  source = "./pipeline"
+
+  name = "aws-account-infrastructure"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+module "buildkite_infrastructure" {
+  source = "./pipeline"
+
+  name = "buildkite-infrastructure"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
 module "catalogue_api" {
   source = "./pipeline"
 
