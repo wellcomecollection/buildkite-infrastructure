@@ -41,6 +41,9 @@ EOF
     # the commit and branch already exist.
     skip_pull_request_builds_for_existing_commits = true
 
+    # Cancels running builds for a branch if the branch is deleted.
+    cancel_deleted_branch_builds = true
+
     # Update the status of commits on GitHub.
     publish_commit_status = true
 

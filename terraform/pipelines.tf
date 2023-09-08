@@ -26,3 +26,24 @@ module "catalogue_api_rank" {
     }
   ]
 }
+
+module "catalogue_pipeline" {
+  source = "./pipeline"
+
+  name        = "Catalogue Pipeline"
+  description = "Catalogue Pipeline & adapter services"
+
+  repository_name = "catalogue-pipeline"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+module "storage_service" {
+  source = "./pipeline"
+
+  name = "Storage Service"
+
+  repository_name = "storage-service"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
