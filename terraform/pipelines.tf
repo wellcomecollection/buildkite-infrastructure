@@ -34,6 +34,34 @@ module "catalogue_api" {
   pipeline_filename = ".buildkite/pipeline.yml"
 }
 
+module "catalogue_api_deploy_prod" {
+  source = "./pipeline"
+
+  name        = "Catalogue API: Deploy prod"
+
+  repository_name = "catalogue-api"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deploy-prod.yml"
+}
+
+module "catalogue_api_deploy_stage" {
+  source = "./pipeline"
+
+  name        = "Catalogue API: Deploy stage"
+
+  repository_name = "catalogue-api"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deploy-stage.yml"
+}
+
 module "catalogue_api_rank" {
   source = "./pipeline"
 
@@ -59,6 +87,30 @@ module "catalogue_pipeline" {
   description = "Catalogue Pipeline & adapter services"
 
   repository_name = "catalogue-pipeline"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+module "catalogue_pipeline_deploy_pipeline" {
+  source = "./pipeline"
+
+  name        = "Catalogue Pipeline: Deploy pipeline"
+
+  repository_name = "catalogue-pipeline"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deploy-pipeline.yml"
+}
+
+module "concepts_pipeline" {
+  source = "./pipeline"
+
+  name        = "Concepts Pipeline"
+
+  repository_name = "concepts-pipeline"
 
   pipeline_filename = ".buildkite/pipeline.yml"
 }
