@@ -1,8 +1,4 @@
-
-
 locals {
-
-
   # This is a collection of settings that should be the same for every
   # instance of our Buildkite stack.
   common_parameters = {
