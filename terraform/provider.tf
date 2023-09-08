@@ -29,3 +29,16 @@ provider "aws" {
     }
   }
 }
+
+terraform {
+  required_providers {
+    buildkite = {
+      source  = "buildkite/buildkite"
+      version = "0.27.0"
+    }
+  }
+}
+
+provider "buildkite" {
+  organization = "wellcomecollection"
+}
