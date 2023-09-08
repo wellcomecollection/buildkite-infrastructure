@@ -24,10 +24,10 @@ EOF
   #
   # Similarly, any previous builds that have already started on the same
   # branch will be skipped.
-  skip_intermediate_builds = true
+  skip_intermediate_builds               = true
   skip_intermediate_builds_branch_filter = "!${var.default_branch}"
 
-  cancel_intermediate_builds = true
+  cancel_intermediate_builds               = true
   cancel_intermediate_builds_branch_filter = "!${var.default_branch}"
 
   # ALlow rebuilds within this pipeline.

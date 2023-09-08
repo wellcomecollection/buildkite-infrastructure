@@ -37,7 +37,7 @@ module "catalogue_api" {
 module "catalogue_api_deploy_prod" {
   source = "./pipeline"
 
-  name        = "Catalogue API: Deploy prod"
+  name = "Catalogue API: Deploy prod"
 
   repository_name = "catalogue-api"
 
@@ -51,7 +51,7 @@ module "catalogue_api_deploy_prod" {
 module "catalogue_api_deploy_stage" {
   source = "./pipeline"
 
-  name        = "Catalogue API: Deploy stage"
+  name = "Catalogue API: Deploy stage"
 
   repository_name = "catalogue-api"
 
@@ -94,7 +94,7 @@ module "catalogue_pipeline" {
 module "catalogue_pipeline_deploy_pipeline" {
   source = "./pipeline"
 
-  name        = "Catalogue Pipeline: Deploy pipeline"
+  name = "Catalogue Pipeline: Deploy pipeline"
 
   repository_name = "catalogue-pipeline"
 
@@ -108,7 +108,7 @@ module "catalogue_pipeline_deploy_pipeline" {
 module "concepts_pipeline" {
   source = "./pipeline"
 
-  name        = "Concepts Pipeline"
+  name = "Concepts Pipeline"
 
   repository_name = "concepts-pipeline"
 
@@ -119,7 +119,7 @@ module "concepts_pipeline" {
 module "content_api" {
   source = "./pipeline"
 
-  name        = "Content API"
+  name = "Content API"
 
   repository_name = "content-api"
 
@@ -139,7 +139,7 @@ module "developers_dot_wellcomecollection_dot_org" {
 module "elasticsearch_log_forwarder" {
   source = "./pipeline"
 
-  name        = "Elasticsearch Log Forwarder"
+  name = "Elasticsearch Log Forwarder"
 
   repository_name = "elasticsearch-log-forwarder"
 
@@ -150,7 +150,7 @@ module "elasticsearch_log_forwarder" {
 module "fake_sierra" {
   source = "./pipeline"
 
-  name        = "Fake Sierra"
+  name = "Fake Sierra"
 
   repository_name = "fake-sierra"
 
@@ -173,7 +173,7 @@ module "identity" {
 module "identity_deployment" {
   source = "./pipeline"
 
-  name        = "Identity Deployment"
+  name = "Identity Deployment"
 
   repository_name = "identity"
 
@@ -188,7 +188,7 @@ module "identity_deployment" {
 module "identity_deploy_prod" {
   source = "./pipeline"
 
-  name        = "Identity: Deploy Prod"
+  name = "Identity: Deploy Prod"
 
   repository_name = "identity"
 
@@ -203,7 +203,7 @@ module "identity_deploy_prod" {
 module "identity_deploy_stage" {
   source = "./pipeline"
 
-  name        = "Identity: Deploy Stage"
+  name = "Identity: Deploy Stage"
 
   repository_name = "identity"
 
@@ -218,7 +218,7 @@ module "identity_deploy_stage" {
 module "platform_infrastructure" {
   source = "./pipeline"
 
-  name        = "Platform infrastructure"
+  name = "Platform infrastructure"
 
   repository_name = "platform-infrastructure"
 
@@ -229,7 +229,7 @@ module "platform_infrastructure" {
 module "platform_infrastructure_redirects" {
   source = "./pipeline"
 
-  name        = "Platform Infrastructure: Redirects"
+  name = "Platform Infrastructure: Redirects"
 
   repository_name = "platform-infrastructure"
 
@@ -266,7 +266,7 @@ module "prismic_linting" {
 module "rank_cli" {
   source = "./pipeline"
 
-  name        = "Rank CLI"
+  name = "Rank CLI"
 
   repository_name = "rank"
 
@@ -276,7 +276,7 @@ module "rank_cli" {
 module "scala_libraries" {
   source = "./pipeline"
 
-  name        = "Scala Libraries"
+  name = "Scala Libraries"
 
   repository_name = "scala-libs"
 
@@ -386,7 +386,7 @@ module "wc_dot_org_end_to_end_tests" {
 module "wellcome_library_redirects" {
   source = "./pipeline"
 
-  name        = "Wellcome Library: Redirects"
+  name = "Wellcome Library: Redirects"
 
   repository_name = "wellcomelibrary.org"
 
@@ -404,7 +404,7 @@ module "wellcome_library_redirects" {
 module "wellcome_library_repo_tests" {
   source = "./pipeline"
 
-  name        = "Wellcome Library: repo tests"
+  name = "Wellcome Library: repo tests"
 
   repository_name = "wellcomelibrary.org"
 
