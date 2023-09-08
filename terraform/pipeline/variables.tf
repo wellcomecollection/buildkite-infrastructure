@@ -18,3 +18,12 @@ variable "default_branch" {
 variable "pipeline_filename" {
   type = string
 }
+
+variable "schedules" {
+  type = list(object({
+    label    = string
+    cronline = string
+  }))
+
+  default = []
+}

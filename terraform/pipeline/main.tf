@@ -48,3 +48,16 @@ EOF
     publish_blocked_as_pending = true
   }
 }
+
+resource "buildkite_pipeline_schedule" "schedule" {
+  for_each = {
+    for index, schedule in var.schedules :
+    schedule.label => schedule.cronline
+  }
+
+  pipeline_id = buildkite_pipeline.pipeline.id
+  branch      = buildkite_pipeline.pipeline.default_branch
+
+  label    = each.key
+  cronline = each.value
+}

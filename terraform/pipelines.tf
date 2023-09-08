@@ -9,7 +9,20 @@ module "catalogue_api" {
   pipeline_filename = ".buildkite/pipeline.yml"
 }
 
-moved {
-  from = buildkite_pipeline.catalogue_api
-  to   = module.catalogue_api.buildkite_pipeline.pipeline
+module "catalogue_api_rank" {
+  source = "./pipeline"
+
+  name        = "Catalogue API: rank"
+  description = "Run search quality tests against the catalogue API"
+
+  repository_name = "catalogue-api"
+
+  pipeline_filename = ".buildkite/pipeline.rank.yml"
+
+  schedules = [
+    {
+      label    = "Hourly rank tests"
+      cronline = "0 * * * *"
+    }
+  ]
 }
