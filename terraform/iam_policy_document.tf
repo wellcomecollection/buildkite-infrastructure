@@ -53,16 +53,16 @@ data "aws_iam_policy_document" "ci_permissions" {
     ]
 
     resources = [
-      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:builds/*",
+      "arn:aws:secretsmanager:${local.aws_region}:${local.account_id}:secret:builds/*",
 
       # Allow BuildKite to get rank cluster credentials so it can run tests
       # https://buildkite.com/wellcomecollection/catalogue-api-rank
-      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:elasticsearch/rank/*",
+      "arn:aws:secretsmanager:${local.aws_region}:${local.account_id}:secret:elasticsearch/rank/*",
 
       # Allow BuildKite to get Prismic API keys to GET/PUT Prismic Custom Types
       # in the Experience build
       # https://buildkite.com/wellcomecollection/experience
-      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:prismic-model/ci/*",
+      "arn:aws:secretsmanager:${local.aws_region}:${local.account_id}:secret:prismic-model/ci/*",
     ]
   }
 
@@ -111,7 +111,7 @@ data "aws_iam_policy_document" "ci_scala_permissions" {
     ]
 
     resources = [
-      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:builds/*",
+      "arn:aws:secretsmanager:${local.aws_region}:${local.account_id}:secret:builds/*",
     ]
   }
 
@@ -158,17 +158,17 @@ data "aws_iam_policy_document" "ci_nano_permissions" {
     ]
 
     resources = [
-      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:builds/*",
+      "arn:aws:secretsmanager:${local.aws_region}:${local.account_id}:secret:builds/*",
 
       # Allow BuildKite to get read-only credentials for the pipeline
       # cluster, to help with auto-deployment of the pipeline.
-      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:elasticsearch/pipeline_storage_*/read_only*",
+      "arn:aws:secretsmanager:${local.aws_region}:${local.account_id}:secret:elasticsearch/pipeline_storage_*/read_only*",
 
-      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:elasticsearch/pipeline_storage_*/public_host*",
+      "arn:aws:secretsmanager:${local.aws_region}:${local.account_id}:secret:elasticsearch/pipeline_storage_*/public_host*",
 
       # Allow BuildKite to get storage service credentials so it can send
       # test bags in the storage service repo.
-      "arn:aws:secretsmanager:${var.aws_region}:${local.account_id}:secret:buildkite/storage_service*",
+      "arn:aws:secretsmanager:${local.aws_region}:${local.account_id}:secret:buildkite/storage_service*",
     ]
   }
 
