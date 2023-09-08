@@ -31,7 +31,7 @@ EOF
 
   provider_settings {
     # Trigger builds when code is pushed to GitHub.
-    trigger_mode = "code"
+    trigger_mode = var.github_trigger_mode
 
     # Run builds when branches are pushed or pull requests are created.
     build_branches      = true

@@ -20,6 +20,11 @@ variable "pipeline_filename" {
   type = string
 }
 
+variable "github_trigger_mode" {
+  type    = string
+  default = "code"
+}
+
 variable "schedules" {
   type = list(object({
     label    = string

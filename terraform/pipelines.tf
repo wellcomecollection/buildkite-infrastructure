@@ -47,3 +47,44 @@ module "storage_service" {
 
   pipeline_filename = ".buildkite/pipeline.yml"
 }
+
+module "wc_dot_org_build_plus_test" {
+  source = "./pipeline"
+
+  name        = "wc.org: build + test"
+  description = "Tests for the wellcomecollection.org repository"
+
+  repository_name = "wellcomecollection.org"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+module "wc_dot_org_deployment" {
+  source = "./pipeline"
+
+  name        = "wc.org: deployment"
+  description = "Deployments for the web apps in the wellcomecollection.org repo"
+
+  repository_name = "wellcomecollection.org"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deployment.yml"
+}
+
+module "wc_dot_org_end_to_end_tests" {
+  source = "./pipeline"
+
+  name        = "wc.org: end-to-end tests"
+  description = "end-to-end tests to verify the website is working correctly"
+
+  repository_name = "wellcomecollection.org"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger by the "deployment" pipeline.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.e2e-universal.yml"
+}
