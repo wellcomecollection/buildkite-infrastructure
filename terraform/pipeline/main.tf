@@ -33,6 +33,11 @@ EOF
   # ALlow rebuilds within this pipeline.
   allow_rebuilds = true
 
+  tags = [
+    "managed_in_terraform",
+    "https://github.com/wellcomecollection/buildkite-infrastructure",
+  ]
+
   provider_settings {
     # Trigger builds when code is pushed to GitHub.
     trigger_mode = var.github_trigger_mode

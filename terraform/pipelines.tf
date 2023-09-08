@@ -115,6 +115,174 @@ module "concepts_pipeline" {
   pipeline_filename = ".buildkite/pipeline.yml"
 }
 
+
+module "content_api" {
+  source = "./pipeline"
+
+  name        = "Content API"
+
+  repository_name = "content-api"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+
+module "developers_dot_wellcomecollection_dot_org" {
+  source = "./pipeline"
+
+  name        = "developers.wellcomecollection.org"
+  description = "Build and deploy the documentation for our developer portal"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+module "elasticsearch_log_forwarder" {
+  source = "./pipeline"
+
+  name        = "Elasticsearch Log Forwarder"
+
+  repository_name = "elasticsearch-log-forwarder"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+
+module "fake_sierra" {
+  source = "./pipeline"
+
+  name        = "Fake Sierra"
+
+  repository_name = "fake-sierra"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+
+module "identity" {
+  source = "./pipeline"
+
+  name        = "Identity"
+  description = "Identity services for Wellcome Collection users"
+
+  repository_name = "identity"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+
+module "identity_deployment" {
+  source = "./pipeline"
+
+  name        = "Identity Deployment"
+
+  repository_name = "identity"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deploy.yml"
+}
+
+
+module "identity_deploy_prod" {
+  source = "./pipeline"
+
+  name        = "Identity: Deploy Prod"
+
+  repository_name = "identity"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deploy-prod.yml"
+}
+
+
+module "identity_deploy_stage" {
+  source = "./pipeline"
+
+  name        = "Identity: Deploy Stage"
+
+  repository_name = "identity"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deploy-stage.yml"
+}
+
+
+module "platform_infrastructure" {
+  source = "./pipeline"
+
+  name        = "Platform infrastructure"
+
+  repository_name = "platform-infrastructure"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+
+module "platform_infrastructure_redirects" {
+  source = "./pipeline"
+
+  name        = "Platform Infrastructure: Redirects"
+
+  repository_name = "platform-infrastructure"
+
+  pipeline_filename = ".buildkite/pipeline.redirectsTest.yml"
+
+  schedules = [
+    {
+      label    = "Hourly redirect tests"
+      cronline = "0 * * * *"
+    }
+  ]
+}
+
+
+module "prismic_linting" {
+  source = "./pipeline"
+
+  name        = "Prismic linting"
+  description = "Run checks on our Prismic content"
+
+  repository_name = "wellcomecollection.org"
+
+  pipeline_filename = ".buildkite/pipeline.prismic-linting.yml"
+
+  schedules = [
+    {
+      label    = "every twenty minutes in office hours"
+      cronline = "*/20 8-18 * * 1-5"
+    }
+  ]
+}
+
+
+module "rank_cli" {
+  source = "./pipeline"
+
+  name        = "Rank CLI"
+
+  repository_name = "rank"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+module "scala_libraries" {
+  source = "./pipeline"
+
+  name        = "Scala Libraries"
+
+  repository_name = "scala-libs"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
 module "storage_service" {
   source = "./pipeline"
 
@@ -123,6 +291,34 @@ module "storage_service" {
   repository_name = "storage-service"
 
   pipeline_filename = ".buildkite/pipeline.yml"
+}
+
+module "storage_service_deploy_prod" {
+  source = "./pipeline"
+
+  name = "Storage Service: deploy prod"
+
+  repository_name = "storage-service"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deploy-prod.yml"
+}
+
+module "storage_service_deploy_stage" {
+  source = "./pipeline"
+
+  name = "Storage Service: deploy stage"
+
+  repository_name = "storage-service"
+
+  # We don't want to trigger this build from pushes or pull requests --
+  # it's trigger at the end of the "build + test" pipeline on main.
+  github_trigger_mode = "none"
+
+  pipeline_filename = ".buildkite/pipeline.deploy-stage.yml"
 }
 
 module "terraform_modules" {
@@ -186,3 +382,32 @@ module "wc_dot_org_end_to_end_tests" {
 
   pipeline_filename = ".buildkite/pipeline.e2e-universal.yml"
 }
+
+module "wellcome_library_redirects" {
+  source = "./pipeline"
+
+  name        = "Wellcome Library: Redirects"
+
+  repository_name = "wellcomelibrary.org"
+
+  pipeline_filename = ".buildkite/pipeline.redirectsTest.yml"
+
+  schedules = [
+    {
+      label    = "Hourly redirect tests"
+      cronline = "0 * * * *"
+    }
+  ]
+}
+
+
+module "wellcome_library_repo_tests" {
+  source = "./pipeline"
+
+  name        = "Wellcome Library: repo tests"
+
+  repository_name = "wellcomelibrary.org"
+
+  pipeline_filename = ".buildkite/pipeline.yml"
+}
+
