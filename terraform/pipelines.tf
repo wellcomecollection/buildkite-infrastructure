@@ -43,7 +43,7 @@ module "catalogue_api_deploy_prod" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deploy-prod.yml"
 }
@@ -57,7 +57,7 @@ module "catalogue_api_deploy_stage" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deploy-stage.yml"
 }
@@ -100,7 +100,7 @@ module "catalogue_pipeline_deploy_pipeline" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deploy-pipeline.yml"
 }
@@ -179,7 +179,7 @@ module "identity_deployment" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deploy.yml"
 }
@@ -194,7 +194,7 @@ module "identity_deploy_prod" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deploy-prod.yml"
 }
@@ -209,7 +209,7 @@ module "identity_deploy_stage" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deploy-stage.yml"
 }
@@ -302,7 +302,7 @@ module "storage_service_deploy_prod" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deploy-prod.yml"
 }
@@ -316,7 +316,7 @@ module "storage_service_deploy_stage" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deploy-stage.yml"
 }
@@ -363,7 +363,7 @@ module "wc_dot_org_deployment" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.deployment.yml"
 }
@@ -378,7 +378,7 @@ module "wc_dot_org_end_to_end_tests" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger by the "deployment" pipeline.
-  github_trigger_mode = "none"
+  trigger_builds_on_code_changes = false
 
   pipeline_filename = ".buildkite/pipeline.e2e-universal.yml"
 }
