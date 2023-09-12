@@ -23,9 +23,9 @@ variable "pipeline_filename" {
   type = string
 }
 
-variable "trigger_builds_on_code_changes" {
-  type    = bool
-  default = true
+variable "trigger_builds_on" {
+  type    = string
+  default = "code"
 }
 
 variable "schedules" {

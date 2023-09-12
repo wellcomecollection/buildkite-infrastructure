@@ -43,7 +43,7 @@ module "catalogue_api_deploy_prod" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "catalogue_api_deploy_stage" {
@@ -56,7 +56,7 @@ module "catalogue_api_deploy_stage" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "catalogue_api_rank" {
@@ -95,7 +95,7 @@ module "catalogue_pipeline_deploy_pipeline" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "concepts_pipeline" {
@@ -163,7 +163,7 @@ module "identity_deployment" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "identity_deploy_prod" {
@@ -176,7 +176,7 @@ module "identity_deploy_prod" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "identity_deploy_stage" {
@@ -189,7 +189,7 @@ module "identity_deploy_stage" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "platform_infrastructure" {
@@ -272,7 +272,7 @@ module "storage_service_deploy_prod" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "storage_service_deploy_stage" {
@@ -285,7 +285,7 @@ module "storage_service_deploy_stage" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "terraform_modules" {
@@ -329,7 +329,7 @@ module "wc_dot_org_deployment" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger at the end of the "build + test" pipeline on main.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "deployment"
 }
 
 module "wc_dot_org_end_to_end_tests" {
@@ -343,7 +343,7 @@ module "wc_dot_org_end_to_end_tests" {
 
   # We don't want to trigger this build from pushes or pull requests --
   # it's trigger by the "deployment" pipeline.
-  trigger_builds_on_code_changes = false
+  trigger_builds_on = "none"
 }
 
 module "wellcome_library_redirects" {
