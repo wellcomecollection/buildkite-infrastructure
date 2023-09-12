@@ -13,7 +13,7 @@ locals {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = "eu-west-1"
 
   assume_role {
     role_arn = "arn:aws:iam::${local.platform_account_id}:role/platform-admin"
@@ -28,4 +28,17 @@ provider "aws" {
       Use                       = "Our build infrastructure"
     }
   }
+}
+
+terraform {
+  required_providers {
+    buildkite = {
+      source  = "buildkite/buildkite"
+      version = "0.27.0"
+    }
+  }
+}
+
+provider "buildkite" {
+  organization = "wellcomecollection"
 }
