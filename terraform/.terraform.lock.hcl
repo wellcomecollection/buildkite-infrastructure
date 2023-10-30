@@ -6,6 +6,7 @@ provider "registry.terraform.io/buildkite/buildkite" {
   constraints = "0.27.0"
   hashes = [
     "h1:DBg8LEGH1/wjwjHo8r7YxnH6zwLPPNePjl1Rb1k/94s=",
+    "h1:EUsOE0BddsD5IMO4s35Wa0ACLVj97Qewt5TjQdK6qsE=",
     "zh:11cae45fe305060c632c9f66a35778366243d8e5bc7080bcfa00f82059b84500",
     "zh:6c25725948778efe6128170f550862d2a62f6d83a3ce09b4fba96c22910fa503",
     "zh:6eb9f1533468ebdb889bb7980b1128d7a9ef88ebc66f2d21ecd461e241f0fd8c",
@@ -27,6 +28,7 @@ provider "registry.terraform.io/buildkite/buildkite" {
 provider "registry.terraform.io/hashicorp/aws" {
   version = "5.16.0"
   hashes = [
+    "h1:6Jog4PN8TNTuURqc5yKia+KbnlfzOc5ylytTo/uUSvY=",
     "h1:QJMj+q9X6Idj9suvQV2Kx6U4G+TjJNm6nUS3HA0bgqc=",
     "zh:0f5926efc6940ef57780e484a70b11807adfaeb097410e152f32bcff7047e08d",
     "zh:1faa567428bca687ab3bcaf04e1375eff12ad8cbe6d51c5a517f6fe84f53125e",
