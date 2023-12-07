@@ -40,6 +40,20 @@ resource "aws_iam_role_policy" "ci_nano_agent" {
   role   = data.aws_iam_role.ci_nano_agent.id
 }
 
+data "aws_iam_role" "ci_test_upgrade_agent" {
+  name = local.ci_test_upgrade_agent_role_name
+}
+
+resource "aws_iam_role_policy" "ci_test_upgrade_get_buildkite_agent_key" {
+  policy = data.aws_iam_policy_document.get_buildkite_agent_key.json
+  role   = data.aws_iam_role.ci_test_upgrade_agent.id
+}
+
+resource "aws_iam_role_policy" "ci_test_upgrade_agent" {
+  policy = data.aws_iam_policy_document.ci_test_upgrade_permissions.json
+  role   = data.aws_iam_role.ci_test_upgrade_agent.id
+}
+
 # These two blocks give the BuildKite autoscaling Lambdas permission
 # to retrieve the Buildkite agent key.  These roles are created by
 # a nested Buildkite stack and I don't know how to retrieve the role names
