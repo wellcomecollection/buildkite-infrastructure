@@ -73,3 +73,8 @@ resource "aws_iam_role_policy" "lambda_nano_get_buildkite_agent_key" {
   policy = data.aws_iam_policy_document.get_buildkite_agent_key.json
   role   = "buildkite-elasticstack-nano-Autoscal-ExecutionRole-J9JXFW2ZIZA6"
 }
+
+resource "aws_iam_role_policy" "lambda_test_upgrade_get_buildkite_agent_key" {
+  policy = data.aws_iam_policy_document.get_buildkite_agent_key.json
+  role   = "buildkite-elasticstack-test-upgrade-A-ExecutionRole-AzfAFEWkgo3d"
+}

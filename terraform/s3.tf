@@ -48,3 +48,7 @@ data "aws_iam_policy_document" "infra" {
     ]
   }
 }
+
+resource "aws_s3_bucket" "buildkite_config" {
+  bucket = "wellcomecollection-buildkite-config"
+}

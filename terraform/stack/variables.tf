@@ -43,3 +43,7 @@ variable "disk_size" {
 variable "secrets_bucket_id" {
   type = string
 }
+
+variable "elastic_ci_stack_templates_bucket" {
+  type = string
+}

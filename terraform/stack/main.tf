@@ -15,8 +15,6 @@ resource "aws_cloudformation_stack" "buildkite" {
       #
       # Allow Spot bids up to 10% above the On-Demand price; any more than that
       # and we should investigate using a mix of On-Demand instances also.
-      InstanceType = var.instance_type
-      SpotPrice    = local.on_demand_ec2_pricing[var.instance_type] * 1.1
 
       InstanceRoleName = var.ci_agent_role_name
 
@@ -34,5 +32,7 @@ resource "aws_cloudformation_stack" "buildkite" {
     local.common_parameters
   )
 
-  template_body = file("${path.module}/../buildkite-${var.elastic_ci_stack_version}.yml")
+  template_url = "http://s3.amazonaws.com/${var.elastic_ci_stack_templates_bucket}/stack_templates/${var.elastic_ci_stack_version}.yml"
+
+  # template_body = file("${path.module}/../buildkite-${var.elastic_ci_stack_version}.yml")
 }

@@ -25,8 +25,11 @@ module "default" {
     #
     ScaleOutForWaitingJobs = true
     ScaleInIdlePeriod      = 600
+    SpotPrice              = local.on_demand_ec2_pricing["r5.large"] * 1.1
+    SecurityGroupId        = local.network_config["security_group_id"]
   }
 
+  elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
   elastic_ci_stack_version = "v5.16.1"
 
   network_config    = local.network_config
@@ -65,9 +68,12 @@ module "scala" {
     # a Docker image, then deploy it from a nano instance) and the pre-emptively
     # scaled instances would likely time out before they were used.
     #
-    ScaleOutForWaitingJobs = false
+    ScaleOutForWaitingJobs  = false
+    SpotPrice               = local.on_demand_ec2_pricing["c5.2xlarge"] * 1.1
+    SecurityGroupId         = local.network_config["security_group_id"]
   }
 
+  elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
   elastic_ci_stack_version = "v5.16.1"
 
   network_config    = local.network_config
@@ -110,9 +116,12 @@ module "nano" {
     # a Docker image, then deploy it from a nano instance) and the pre-emptively
     # scaled instances would likely time out before they were used.
     #
-    ScaleOutForWaitingJobs = false
+    ScaleOutForWaitingJobs  = false
+    SpotPrice               = local.on_demand_ec2_pricing["t3.nano"] * 1.1
+    SecurityGroupId         = local.network_config["security_group_id"]
   }
 
+  elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
   elastic_ci_stack_version = "v5.16.1"
 
   network_config    = local.network_config
@@ -141,9 +150,13 @@ module "test-upgrade" {
     # a Docker image, then deploy it from a nano instance) and the pre-emptively
     # scaled instances would likely time out before they were used.
     #
-    ScaleOutForWaitingJobs = false
+    ScaleOutForWaitingJobs  = false
+    SecurityGroupIds        = local.network_config["security_group_id"]
+    SpotAllocationStrategy  = "price-capacity-optimized"
+    OnDemandPercentage      = 0
   }
 
+  elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
   elastic_ci_stack_version = "v6.10.0"
 
   network_config    = local.network_config
