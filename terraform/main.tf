@@ -68,7 +68,7 @@ module "scala" {
     # a Docker image, then deploy it from a nano instance) and the pre-emptively
     # scaled instances would likely time out before they were used.
     #
-    ScaleOutForWaitingJobs  = false
+    ScaleOutForWaitingJobs = false
   }
 
   elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket

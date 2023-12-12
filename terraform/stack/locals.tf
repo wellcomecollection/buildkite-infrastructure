@@ -8,12 +8,12 @@ locals {
 
     InstanceCreationTimeout = "PT5M"
 
-    VpcId             = var.network_config["vpc_id"]
-    Subnets           = join(",", var.network_config["subnets"])
-    SecurityGroupIds  = var.network_config["security_group_id"]
-    
-    SpotAllocationStrategy  = "price-capacity-optimized"
-    OnDemandPercentage      = 0
+    VpcId            = var.network_config["vpc_id"]
+    Subnets          = join(",", var.network_config["subnets"])
+    SecurityGroupIds = var.network_config["security_group_id"]
+
+    SpotAllocationStrategy = "price-capacity-optimized"
+    OnDemandPercentage     = 0
 
     CostAllocationTagName  = "aws:createdBy"
     CostAllocationTagValue = "buildkite-elasticstack"

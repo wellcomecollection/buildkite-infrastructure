@@ -16,7 +16,7 @@ resource "aws_cloudformation_stack" "buildkite" {
       # Allow Spot bids up to 10% above the On-Demand price; any more than that
       # and we should investigate using a mix of On-Demand instances also.
 
-      InstanceTypes = var.instance_type
+      InstanceTypes    = var.instance_type
       InstanceRoleName = var.ci_agent_role_name
 
       RootVolumeSize = parseint(replace(var.disk_size, " GB", ""), 10)
