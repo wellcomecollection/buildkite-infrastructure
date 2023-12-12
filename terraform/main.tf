@@ -4,11 +4,11 @@ module "default" {
   name       = "buildkite-elasticstack"
   queue_name = "default"
 
-  instance_type = "r5.large"
 
   ci_agent_role_name = local.ci_agent_role_name
 
-  disk_size = "40 GB"
+  instance_type = "r5.large"
+  disk_size     = "40 GB"
 
   max_workers = 20
 
@@ -51,11 +51,11 @@ module "scala" {
   name       = "buildkite-elasticstack-scala"
   queue_name = "scala"
 
-  instance_type = "c5.2xlarge"
 
   ci_agent_role_name = local.ci_scala_agent_role_name
 
-  disk_size = "40 GB"
+  instance_type = "c5.2xlarge"
+  disk_size     = "40 GB"
 
   max_workers = 60
 
@@ -98,11 +98,10 @@ module "nano" {
   name       = "buildkite-elasticstack-nano"
   queue_name = "nano"
 
-  instance_type = "t3.nano"
-
   ci_agent_role_name = local.ci_nano_agent_role_name
 
-  disk_size = "20 GB"
+  instance_type = "t3.nano"
+  disk_size     = "20 GB"
 
   max_workers = 10
 
