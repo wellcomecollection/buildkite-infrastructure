@@ -1,6 +1,6 @@
 locals {
-  s3_stack_templates_prefix = "stack_templates/"
-  buildkite_stack_template_v5_16_1 = "${path.module}/buildkite-v5.16.1.yml"
+  s3_stack_templates_prefix                 = "stack_templates/"
+  buildkite_stack_template_v5_16_1          = "${path.module}/buildkite-v5.16.1.yml"
   buildkite_stack_template_location_v6_10_0 = "${path.module}/buildkite-v6.10.0.yml"
 }
 

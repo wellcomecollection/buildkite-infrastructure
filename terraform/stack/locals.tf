@@ -8,8 +8,8 @@ locals {
 
     InstanceCreationTimeout = "PT5M"
 
-    VpcId           = var.network_config["vpc_id"]
-    Subnets         = join(",", var.network_config["subnets"])
+    VpcId   = var.network_config["vpc_id"]
+    Subnets = join(",", var.network_config["subnets"])
     # SecurityGroupId = var.network_config["security_group_id"]
 
     CostAllocationTagName  = "aws:createdBy"
@@ -39,5 +39,5 @@ locals {
   #
   # In theory there's a Terraform provider for this, but I couldn't get
   # it to work: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/pricing_product
-  
+
 }

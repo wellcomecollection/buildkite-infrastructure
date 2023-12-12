@@ -200,7 +200,7 @@ data "aws_iam_policy_document" "ci_test_upgrade_permissions" {
       local.account_ci_role_arn_map["identity"],
     ]
   }
-  
+
   statement {
     actions = [
       "ecr:*",
@@ -210,7 +210,7 @@ data "aws_iam_policy_document" "ci_test_upgrade_permissions" {
       "*",
     ]
   }
-  
+
   # Retrieve build secrets
   statement {
     actions = [
