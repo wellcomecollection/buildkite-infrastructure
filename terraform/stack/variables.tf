@@ -6,10 +6,6 @@ variable "queue_name" {
   type = string
 }
 
-variable "instance_type" {
-  type = string
-}
-
 variable "min_workers" {
   type    = number
   default = 0
