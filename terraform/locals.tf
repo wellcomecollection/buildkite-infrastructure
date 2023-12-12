@@ -25,10 +25,4 @@ locals {
     subnets           = local.ci_vpc_private_subnets
     security_group_id = aws_security_group.buildkite.id
   }
-
-  on_demand_ec2_pricing = {
-    "r5.large"   = 0.126
-    "c5.2xlarge" = 0.34
-    "t3.nano"    = 0.0052
-  }
 }

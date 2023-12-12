@@ -4,6 +4,8 @@ module "default" {
   name       = "buildkite-elasticstack"
   queue_name = "default"
 
+  instance_type = "r5.large"
+
   ci_agent_role_name = local.ci_agent_role_name
 
   disk_size     = "40 GB"
@@ -24,13 +26,10 @@ module "default" {
     #
     ScaleOutForWaitingJobs = true
     ScaleInIdlePeriod      = 600
-    InstanceType           = "r5.large"
-    SpotPrice              = local.on_demand_ec2_pricing["r5.large"] * 1.1
-    SecurityGroupId        = local.network_config["security_group_id"]
   }
 
   elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
-  elastic_ci_stack_version = "v5.16.1"
+  elastic_ci_stack_version = "v6.10.0"
 
   network_config    = local.network_config
   secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id
@@ -52,6 +51,8 @@ module "scala" {
   name       = "buildkite-elasticstack-scala"
   queue_name = "scala"
 
+  instance_type = "c5.2xlarge"
+
   ci_agent_role_name = local.ci_scala_agent_role_name
 
   disk_size     = "40 GB"
@@ -68,13 +69,10 @@ module "scala" {
     # scaled instances would likely time out before they were used.
     #
     ScaleOutForWaitingJobs  = false
-    InstanceType            = "c5.2xlarge"
-    SpotPrice               = local.on_demand_ec2_pricing["c5.2xlarge"] * 1.1
-    SecurityGroupId         = local.network_config["security_group_id"]
   }
 
   elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
-  elastic_ci_stack_version = "v5.16.1"
+  elastic_ci_stack_version = "v6.10.0"
 
   network_config    = local.network_config
   secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id
@@ -100,6 +98,8 @@ module "nano" {
   name       = "buildkite-elasticstack-nano"
   queue_name = "nano"
 
+  instance_type = "t3.nano"
+
   ci_agent_role_name = local.ci_nano_agent_role_name
 
   disk_size     = "20 GB"
@@ -116,44 +116,6 @@ module "nano" {
     # scaled instances would likely time out before they were used.
     #
     ScaleOutForWaitingJobs  = false
-    InstanceType            = "t3.nano"
-    SpotPrice               = local.on_demand_ec2_pricing["t3.nano"] * 1.1
-    SecurityGroupId         = local.network_config["security_group_id"]
-  }
-
-  elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
-  elastic_ci_stack_version = "v5.16.1"
-
-  network_config    = local.network_config
-  secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id
-}
-
-module "test-upgrade" {
-  source = "./stack"
-
-  name       = "buildkite-elasticstack-test-upgrade"
-  queue_name = "test-upgrade"
-
-  ci_agent_role_name = local.ci_test_upgrade_agent_role_name
-
-  disk_size     = "40 GB"
-
-  max_workers = 60
-
-  extra_parameters = {
-    # This setting would tell Buildkite to scale out for steps behind wait
-    # steps.
-    #
-    # We don't enable it for nano instances because these are often waiting
-    # behind long-running tasks in the large queue (e.g. build and publish
-    # a Docker image, then deploy it from a nano instance) and the pre-emptively
-    # scaled instances would likely time out before they were used.
-    #
-    ScaleOutForWaitingJobs  = false
-    InstanceTypes           = "c5.2xlarge"
-    SecurityGroupIds        = local.network_config["security_group_id"]
-    SpotAllocationStrategy  = "price-capacity-optimized"
-    OnDemandPercentage      = 0
   }
 
   elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
