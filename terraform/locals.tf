@@ -11,7 +11,6 @@ locals {
   ci_agent_role_name              = "ci-agent"
   ci_nano_agent_role_name         = "${local.ci_agent_role_name}-nano"
   ci_scala_agent_role_name        = "${local.ci_agent_role_name}-scala"
-  ci_test_upgrade_agent_role_name = "${local.ci_agent_role_name}-test-upgrade"
 
 
   ci_vpc_id              = local.platform_vpcs["ci_vpc_id"]

@@ -8,7 +8,7 @@ module "default" {
 
   ci_agent_role_name = local.ci_agent_role_name
 
-  disk_size     = "40 GB"
+  disk_size = "40 GB"
 
   max_workers = 20
 
@@ -29,7 +29,7 @@ module "default" {
   }
 
   elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
-  elastic_ci_stack_version = "v6.10.0"
+  elastic_ci_stack_version          = "v6.10.0"
 
   network_config    = local.network_config
   secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id
@@ -55,7 +55,7 @@ module "scala" {
 
   ci_agent_role_name = local.ci_scala_agent_role_name
 
-  disk_size     = "40 GB"
+  disk_size = "40 GB"
 
   max_workers = 60
 
@@ -72,7 +72,7 @@ module "scala" {
   }
 
   elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
-  elastic_ci_stack_version = "v6.10.0"
+  elastic_ci_stack_version          = "v6.10.0"
 
   network_config    = local.network_config
   secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id
@@ -102,7 +102,7 @@ module "nano" {
 
   ci_agent_role_name = local.ci_nano_agent_role_name
 
-  disk_size     = "20 GB"
+  disk_size = "20 GB"
 
   max_workers = 10
 
@@ -115,11 +115,11 @@ module "nano" {
     # a Docker image, then deploy it from a nano instance) and the pre-emptively
     # scaled instances would likely time out before they were used.
     #
-    ScaleOutForWaitingJobs  = false
+    ScaleOutForWaitingJobs = false
   }
 
   elastic_ci_stack_templates_bucket = aws_s3_bucket.buildkite_config.bucket
-  elastic_ci_stack_version = "v6.10.0"
+  elastic_ci_stack_version          = "v6.10.0"
 
   network_config    = local.network_config
   secrets_bucket_id = aws_s3_bucket.buildkite_secrets.id

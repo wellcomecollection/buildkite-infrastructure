@@ -42,5 +42,5 @@ locals {
   #
   # In theory there's a Terraform provider for this, but I couldn't get
   # it to work: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/pricing_product
-  
+
 }
