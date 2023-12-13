@@ -8,9 +8,12 @@ locals {
 
     InstanceCreationTimeout = "PT5M"
 
-    VpcId           = var.network_config["vpc_id"]
-    Subnets         = join(",", var.network_config["subnets"])
-    SecurityGroupId = var.network_config["security_group_id"]
+    VpcId            = var.network_config["vpc_id"]
+    Subnets          = join(",", var.network_config["subnets"])
+    SecurityGroupIds = var.network_config["security_group_id"]
+
+    SpotAllocationStrategy = "price-capacity-optimized"
+    OnDemandPercentage     = 0
 
     CostAllocationTagName  = "aws:createdBy"
     CostAllocationTagValue = "buildkite-elasticstack"
@@ -39,9 +42,5 @@ locals {
   #
   # In theory there's a Terraform provider for this, but I couldn't get
   # it to work: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/pricing_product
-  on_demand_ec2_pricing = {
-    "r5.large"   = 0.125
-    "c5.2xlarge" = 0.34
-    "t3.nano"    = 0.0052
-  }
+
 }

@@ -38,7 +38,7 @@ EOF
     "https://github.com/wellcomecollection/buildkite-infrastructure",
   ]
 
-  provider_settings {
+  provider_settings = {
     # Trigger builds when code is pushed to GitHub.
     trigger_mode = var.trigger_builds_on
 
