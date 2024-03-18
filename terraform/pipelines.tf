@@ -134,15 +134,6 @@ module "elasticsearch_log_forwarder" {
   pipeline_filename = ".buildkite/pipeline.yml"
 }
 
-module "fake_sierra" {
-  source = "./pipeline"
-
-  name            = "Fake Sierra"
-  repository_name = "fake-sierra"
-
-  pipeline_filename = ".buildkite/pipeline.yml"
-}
-
 module "identity" {
   source = "./pipeline"
 
