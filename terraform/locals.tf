@@ -5,6 +5,7 @@ locals {
   infra_bucket_arn = local.shared_infra["infra_bucket_arn"]
   infra_bucket_id  = local.shared_infra["infra_bucket"]
 
+  s3_scala_releases_read_role_arn = local.platform_accounts["s3_scala_releases_read_role_arn"]
   platform_read_only_role_arn = local.platform_accounts["platform_read_only_role_arn"]
   account_ci_role_arn_map     = local.platform_accounts["ci_role_arn"]
 
