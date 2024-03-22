@@ -25,6 +25,7 @@ data "aws_iam_policy_document" "ci_permissions" {
     actions = ["sts:AssumeRole"]
     resources = [
       local.platform_read_only_role_arn,
+      local.s3_scala_releases_read_role_arn,
       local.account_ci_role_arn_map["platform"],
       local.account_ci_role_arn_map["catalogue"],
       local.account_ci_role_arn_map["digirati"],
@@ -83,6 +84,7 @@ data "aws_iam_policy_document" "ci_scala_permissions" {
     actions = ["sts:AssumeRole"]
     resources = [
       local.platform_read_only_role_arn,
+      local.s3_scala_releases_read_role_arn,
       local.account_ci_role_arn_map["platform"],
       local.account_ci_role_arn_map["catalogue"],
       local.account_ci_role_arn_map["digirati"],
@@ -131,6 +133,7 @@ data "aws_iam_policy_document" "ci_nano_permissions" {
     actions = ["sts:AssumeRole"]
     resources = [
       local.platform_read_only_role_arn,
+      local.s3_scala_releases_read_role_arn,
       local.account_ci_role_arn_map["platform"],
       local.account_ci_role_arn_map["catalogue"],
       local.account_ci_role_arn_map["digirati"],
