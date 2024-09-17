@@ -116,15 +116,6 @@ module "content_api" {
   pipeline_filename = ".buildkite/pipeline.yml"
 }
 
-module "developers_dot_wellcomecollection_dot_org" {
-  source = "./pipeline"
-
-  name        = "developers.wellcomecollection.org"
-  description = "Build and deploy the documentation for our developer portal"
-
-  pipeline_filename = ".buildkite/pipeline.yml"
-}
-
 module "elasticsearch_log_forwarder" {
   source = "./pipeline"
 
@@ -204,24 +195,6 @@ module "platform_infrastructure_redirects" {
     {
       label    = "Hourly redirect tests"
       cronline = "0 * * * *"
-    }
-  ]
-}
-
-
-module "prismic_linting" {
-  source = "./pipeline"
-
-  name            = "Prismic linting"
-  description     = "Run checks on our Prismic content"
-  repository_name = "wellcomecollection.org"
-
-  pipeline_filename = ".buildkite/pipeline.prismic-linting.yml"
-
-  schedules = [
-    {
-      label    = "every twenty minutes in office hours"
-      cronline = "*/20 8-18 * * 1-5"
     }
   ]
 }
