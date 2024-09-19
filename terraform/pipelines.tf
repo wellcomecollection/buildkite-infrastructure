@@ -208,15 +208,6 @@ module "rank_cli" {
   pipeline_filename = ".buildkite/pipeline.yml"
 }
 
-module "scala_libraries" {
-  source = "./pipeline"
-
-  name            = "Scala Libraries"
-  repository_name = "scala-libs"
-
-  pipeline_filename = ".buildkite/pipeline.yml"
-}
-
 module "storage_service" {
   source = "./pipeline"
 
