@@ -254,7 +254,6 @@ module "terraform_modules" {
     "terraform-aws-secrets",
     "terraform-aws-sns-topic",
     "terraform-aws-sqs",
-    "terraform-aws-vhs",
   ])
 
   name            = "Terraform module (${each.key})"
