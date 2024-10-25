@@ -243,25 +243,6 @@ module "storage_service_deploy_stage" {
   trigger_builds_on = "none"
 }
 
-module "terraform_modules" {
-  source = "./pipeline"
-
-  for_each = toset([
-    "terraform-aws-acm-certificate",
-    "terraform-aws-api-gateway-responses",
-    "terraform-aws-ecs-service",
-    "terraform-aws-lambda",
-    "terraform-aws-secrets",
-    "terraform-aws-sns-topic",
-    "terraform-aws-sqs",
-  ])
-
-  name            = "Terraform module (${each.key})"
-  repository_name = each.key
-
-  pipeline_filename = ".buildkite/pipeline.yml"
-}
-
 module "wc_dot_org_build_plus_test" {
   source = "./pipeline"
 
