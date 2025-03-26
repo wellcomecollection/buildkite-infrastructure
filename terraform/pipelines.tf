@@ -98,15 +98,6 @@ module "catalogue_pipeline_deploy_pipeline" {
   trigger_builds_on = "none"
 }
 
-module "concepts_pipeline" {
-  source = "./pipeline"
-
-  name            = "Concepts Pipeline"
-  repository_name = "concepts-pipeline"
-
-  pipeline_filename = ".buildkite/pipeline.yml"
-}
-
 module "content_api" {
   source = "./pipeline"
 
